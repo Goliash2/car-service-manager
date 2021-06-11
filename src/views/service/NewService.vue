@@ -11,7 +11,7 @@
     <ion-content :fullscreen="true">
       <ion-card>
         <ion-fab vertical="top" horizontal="end">
-          <ion-fab-button @click="openNewCustomerModal">
+          <ion-fab-button @click="openModal">
             <ion-icon :icon="add"></ion-icon>
           </ion-fab-button>
         </ion-fab>
@@ -30,28 +30,42 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCardSubtitle, IonSearchbar, IonFab, IonFabButton, IonIcon, modalController } from '@ionic/vue';
 import {add} from "ionicons/icons";
-import NewCustomer from "@/components/NewCustomer.vue";
 import { defineComponent } from "vue";
+import NewCustomer from "@/components/NewCustomer";
 
 export default defineComponent ({
   name: "NewService.vue",
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCardSubtitle, IonSearchbar, IonFab, IonFabButton, IonIcon },
-  setup() {
-    const openNewCustomerModal = async () => {
-      const modal = await modalController.create({
-        component: NewCustomer, //Modal is name of the component to render inside ionic modal
-      });
-      return modal.present();
-    };
-
+  data() {
     return {
-      add,
-      openNewCustomerModal
+      add
+    }
+  },
+  methods: {
+    async openModal() {
+      const modal = await modalController
+        .create({
+          component: NewCustomer
+        })
+      return modal.present();
     }
   }
+  // setup() {
+  //   const openNewCustomerModal = async () => {
+  //     const modal = await modalController.create({
+  //       component: NewCustomer, //Modal is name of the component to render inside ionic modal
+  //     });
+  //     return modal.present();
+  //   };
+  //
+  //   return {
+  //     add,
+  //     openNewCustomerModal
+  //   }
+  // }
 });
 </script>
 

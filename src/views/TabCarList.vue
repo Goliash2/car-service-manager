@@ -80,32 +80,35 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonThumbnail, IonLabel, IonItemDivider, IonItemSliding, IonItemOption, IonItemOptions, IonIcon } from '@ionic/vue';
 import {cog, logIn, logOut} from "ionicons/icons";
-import { useStore, Service} from "@/store/store";
+import {mapGetters} from "vuex";
 
 export default  {
   name: 'TabCarList',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonThumbnail, IonLabel, IonItemDivider, IonItemSliding, IonItemOption, IonItemOptions, IonIcon },
-  setup() {
-    const store = useStore();
-
-    const services: Service[] = store.state.service;
-
-    const servicesDone = services.filter(service => service.serviceStatus==='done')
-    const servicesInService = services.filter(service => service.serviceStatus==='service')
-    const servicesWaiting = services.filter(service => service.serviceStatus==='waiting')
-
+  data() {
     return {
-      logIn,
-      logOut,
-      cog,
-      services,
-      servicesDone,
-      servicesInService,
-      servicesWaiting
+     cog,
+     logIn,
+     logOut
     }
+  },
+  computed: {
+    ...mapGetters(['service']),
+    servicesDone() {
+      return this.service.filter(service => service.serviceStatus==='done')
+    },
+    servicesInService() {
+      return this.service.filter(service => service.serviceStatus==='service')
+    },
+    servicesWaiting() {
+      return this.service.filter(service => service.serviceStatus==='waiting')
+    }
+  },
+  created() {
+    console.log(this.service)
   }
 }
 </script>

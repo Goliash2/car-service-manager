@@ -29,31 +29,27 @@
       </ion-tab-bar>
     </ion-tabs>
     <ion-fab vertical="bottom" horizontal="center" slot="fixed" edge="false">
-      <ion-fab-button  @click="() => router.push('/service/new')" class="ion-margin-bottom">
+      <ion-fab-button  @click="this.$router.push('/service/new')" class="ion-margin-bottom">
         <ion-icon :icon="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonFab, IonFabButton} from '@ionic/vue';
 import { add, list, search, ellipsisHorizontal, apps } from 'ionicons/icons';
-import { useRouter } from 'vue-router';
 
 export default {
   name: 'Tabs',
   components: { IonLabel, IonTabs, IonTabBar, IonTabButton, IonIcon, IonPage, IonFab, IonFabButton },
-  setup() {
-    const router = useRouter();
-
+  data() {
     return {
       add,
       list,
       search,
       ellipsisHorizontal,
-      apps,
-      router
+      apps
     }
   }
 }

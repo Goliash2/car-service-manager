@@ -16,17 +16,17 @@
   </ion-page>
 </template>
 
-<script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonIcon } from '@ionic/vue';
+<script>
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonIcon, IonFabButton, IonFab } from '@ionic/vue';
 import {camera} from 'ionicons/icons';
 
 export default  {
   name: 'TabSearch',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonIcon },
-  setup() {
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonIcon, IonFabButton, IonFab },
+  data() {
     return {
       camera
     }
-  }
+  },
 }
 </script>

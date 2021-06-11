@@ -12,23 +12,23 @@
         <ion-col size="6">
           <ion-item>
             <ion-label position="stacked">Jméno</ion-label>
-            <ion-input v-model="selectedCustomer.jmeno"></ion-input>
+            <ion-input v-model="selectedCustomer.name"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="6">
           <ion-item>
             <ion-label position="stacked">Příjmení</ion-label>
-            <ion-input v-model="selectedCustomer.prijmeni"></ion-input>
+            <ion-input v-model="selectedCustomer.surname"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-item>
         <ion-label position="stacked">Telefon</ion-label>
-        <ion-input v-model="selectedCustomer.telefon"></ion-input>
+        <ion-input v-model="selectedCustomer.phone"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Firma</ion-label>
-        <ion-input v-model="selectedCustomer.firma"></ion-input>
+        <ion-input v-model="selectedCustomer.company"></ion-input>
       </ion-item>
 
       <ion-button expand="block" class="ion-margin-top" @click="saveNewCustomer()">Přidat nového zákazníka</ion-button>
@@ -36,7 +36,7 @@
     </ion-content>
 </template>
 
-<script lang="ts">
+<script>
 import {
   // IonPage,
   IonContent,
@@ -52,13 +52,6 @@ import {
   IonInput,
   IonItem
 } from "@ionic/vue";
-
-interface Customer {
-  jmeno?: string;
-  prijmeni?: string;
-  telefon?: string;
-  firma?: string;
-}
 
 import { defineComponent } from "vue";
 
@@ -78,21 +71,21 @@ export default defineComponent ({
   data () {
     return {
       selectedCustomer: {
-        type: Object as() => Customer
+        name: '',
+        surname: '',
+        phone: '',
+        company: ''
       }
     }
   },
-  setup() {
-    const closeModal = () => {
+  methods: {
+    closeModal() {
       modalController.dismiss();
-    };
-
-    const saveNewCustomer = () => {
-      // console.log(this.selectedCustomer);
+    },
+    saveNewCustomer() {
+      console.log(this.selectedCustomer);
     }
-
-    return {closeModal, saveNewCustomer};
-  },
+  }
 });
 </script>
 

@@ -87,7 +87,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {IonList, IonItem, IonThumbnail, IonLabel, IonItemDivider, IonItemSliding, IonItemOption, IonItemOptions, IonIcon} from '@ionic/vue';
 import {logIn, logOut, cog} from 'ionicons/icons';
 
