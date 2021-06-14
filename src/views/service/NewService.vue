@@ -49,7 +49,7 @@ export default defineComponent ({
       const modal = await modalController
         .create({
           component: NewCustomer
-        })
+        });
       return modal.present();
     }
   }
