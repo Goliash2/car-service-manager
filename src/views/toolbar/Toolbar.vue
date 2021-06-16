@@ -22,7 +22,7 @@
           <ion-label>Hledat auto</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/tabs/tab3">
+        <ion-tab-button tab="other" href="/tabs/other">
           <ion-icon :icon="ellipsisHorizontal" />
           <ion-label>Další</ion-label>
         </ion-tab-button>

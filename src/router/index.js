@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import Tabs from '../views/Tabs.vue'
+import Tabs from '../views/toolbar/Toolbar.vue'
 import NewService from "@/views/service/NewService.vue";
 
 const routes = [
@@ -17,19 +17,19 @@ const routes = [
       },
       {
         path: 'dashboard',
-        component: () => import('@/views/TabDashboard.vue')
+        component: () => import('@/views/toolbar/TabDashboard.vue')
       },
       {
         path: 'list',
-        component: () => import('@/views/TabCarList.vue')
+        component: () => import('@/views/toolbar/TabCarList.vue')
       },
       {
         path: 'search',
-        component: () => import('@/views/TabSearch.vue')
+        component: () => import('@/views/toolbar/TabSearch.vue')
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        path: 'other',
+        component: () => import('@/views/toolbar/TabOther.vue')
       }
     ]
   },

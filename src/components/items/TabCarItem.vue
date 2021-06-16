@@ -30,11 +30,6 @@ name: "TabCarItem",
   components: {
     IonItem, IonThumbnail, IonLabel, IonItemDivider, IonItemSliding, IonItemOption, IonItemOptions, IonIcon
   },
-  data() {
-    return {
-
-    }
-  },
   props: ['color', 'icon', 'title' ,'services']
 }
 </script>
