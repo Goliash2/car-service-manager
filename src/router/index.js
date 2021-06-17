@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
+
 import Tabs from '../views/toolbar/Toolbar.vue'
 import NewService from "@/views/service/NewService.vue";
+import Login from "@/views/user/Login";
+
+import store from "@/store";
 
 const routes = [
   {
@@ -10,6 +14,7 @@ const routes = [
   {
     path: '/tabs/',
     component: Tabs,
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',
@@ -36,6 +41,7 @@ const routes = [
   {
     path: '/service/',
     component: NewService,
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',
@@ -50,6 +56,11 @@ const routes = [
         component: () => import('@/views/service/EditService.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: Login,
+    meta: { requiresUnAuth: true }
   }
 ]
 
@@ -58,4 +69,14 @@ const router = createRouter({
   routes
 })
 
-export default router
+router.beforeEach(function (to, _, next) {
+  if (to.meta.requiresAuth &&  !store.getters['isUserAuthenticated']) {
+    next('/login');
+  } else if (to.meta.requiresUnAuth && store.getters['isUserAuthenticated']) {
+    next('/tabs/dashboard');
+  } else {
+    next();
+  }
+});
+
+export default router;

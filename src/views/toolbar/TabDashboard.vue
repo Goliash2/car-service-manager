@@ -21,6 +21,6 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue
 
 export default  {
   name: 'Tab1',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
 }
 </script>
