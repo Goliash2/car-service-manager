@@ -11,15 +11,21 @@
           <ion-title size="large">Další</ion-title>
         </ion-toolbar>
       </ion-header>
+      <ion-button @click="logout">Odhlásit</ion-button>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
 
 export default  {
   name: 'TabOther',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
+  methods: {
+    logout() {
+      this.$store.dispatch('userLogout')
+    }
+  }
 }
 </script>

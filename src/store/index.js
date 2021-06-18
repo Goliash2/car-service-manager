@@ -6,7 +6,7 @@ import userAuthentication from "@/store/modules/userAuthentication";
 import createPersistedState from "vuex-persistedstate";
 
 const savedStoreToLocalMemory = createPersistedState({
-    paths: []
+    paths: ['userAuthentication']
 })
 
 const store = createStore({
