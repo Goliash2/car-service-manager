@@ -24,6 +24,16 @@ export default {
             state.userIsAuthenticated = false
             state.token = null
             state.tokenExpiration = null
+        },
+        async disconnectUserTokenExpiration(state, currentTime) {
+            if (currentTime >= state.tokenExpiration * 1000) {
+                state.userIsAuthenticated = false
+                state.token = null
+                state.tokenExpiration = null
+                await router.replace('/login')
+            } else {
+                console.log('token je platny')
+            }
         }
     },
     actions: {
@@ -56,6 +66,10 @@ export default {
         async userLogout(context) {
             context.commit('disconnectUser')
             await router.replace('/login')
+        },
+        checkTokenExpiration(context) {
+            const currentTime = Date.now()
+            context.commit('disconnectUserTokenExpiration', currentTime)
         }
     },
     getters: {

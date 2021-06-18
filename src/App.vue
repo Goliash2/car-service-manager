@@ -12,7 +12,12 @@ export default defineComponent({
   name: 'App',
   components: {
     IonApp,
-    IonRouterOutlet
+    IonRouterOutlet,
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch('checkTokenExpiration')
+    }
   }
 });
 </script>
