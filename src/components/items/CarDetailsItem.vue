@@ -1,5 +1,5 @@
 <template>
- {{ car.SPZ }}
+  {{ car }}
 </template>
 
 <script>

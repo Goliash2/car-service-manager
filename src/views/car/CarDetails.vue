@@ -2,6 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
         <ion-title>Detail vozidla</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -14,13 +17,13 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent} from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton} from '@ionic/vue';
 import { mapGetters } from "vuex";
 import CarDetailsItem from "@/components/items/CarDetailsItem";
 
 export default {
 name: "CarDetails",
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage ,CarDetailsItem},
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButtons, IonBackButton, CarDetailsItem},
   data() {
     return {
       carId: this.$route.params.id
