@@ -5,7 +5,10 @@
 <script>
 export default {
   name: "CarDetailsItem",
-  props: ['car']
+  props: ['car'],
+  created() {
+    console.log(this.car)
+  }
 }
 </script>
 
