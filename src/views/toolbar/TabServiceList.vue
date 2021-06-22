@@ -48,6 +48,7 @@ export default  {
   },
   ionViewDidEnter() {
     this.$store.dispatch('GET_SERVICE_LIST', this.userToken)
+    console.log(this.$route.params)
   },
   computed: {
     ...mapGetters(['services']),

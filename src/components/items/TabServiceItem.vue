@@ -6,7 +6,7 @@
     </ion-label>
   </ion-item-divider>
   <ion-item-sliding v-for="service in services" :key="service.car.SPZ">
-    <ion-item>
+    <ion-item :router-link="`/car/${service.car.id}`">
 <!--      <ion-thumbnail slot="start">-->
 <!--        <img alt="foto" :src="service.car.photos[0].url">-->
 <!--      </ion-thumbnail>-->

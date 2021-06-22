@@ -54,8 +54,13 @@ const routes = [
       {
         path: 'edit',
         component: () => import('@/views/service/EditService.vue')
-      }
-    ]
+      },
+    ],
+  },
+  {
+    path: '/car/:id',
+    component: () => import('@/views/car/CarDetails'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
