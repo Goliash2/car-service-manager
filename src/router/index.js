@@ -26,7 +26,7 @@ const routes = [
       },
       {
         path: 'list',
-        component: () => import('@/views/toolbar/TabCarList.vue')
+        component: () => import('@/views/toolbar/TabServiceList.vue')
       },
       {
         path: 'search',

@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 
-import carDatabase from '@/store/modules/carDatabase'
+import carDatabase from '@/store/modules/serviceList'
 import userAuthentication from "@/store/modules/userAuthentication";
 
 import createPersistedState from "vuex-persistedstate";
