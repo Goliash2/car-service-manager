@@ -80,5 +80,7 @@ name: "CarDetails",
 </script>
 
 <style scoped>
-
+  ion-spinner {
+    padding-right: 50px;
+  }
 </style>
