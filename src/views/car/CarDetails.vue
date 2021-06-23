@@ -6,6 +6,7 @@
           <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title>Detail vozidla</ion-title>
+        <ion-spinner v-if="loading" slot="end"></ion-spinner>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -17,42 +18,49 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, loadingController, toastController} from '@ionic/vue';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonBackButton,
+  toastController,
+  IonSpinner
+} from '@ionic/vue';
 import { mapGetters } from "vuex";
 import CarDetailsItem from "@/components/items/CarDetailsItem";
 
 export default {
 name: "CarDetails",
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButtons, IonBackButton, CarDetailsItem},
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButtons, IonBackButton, IonSpinner, CarDetailsItem},
   data() {
     return {
-      carId: this.$route.params.id
+      carId: this.$route.params.id,
+      loading: false
     }
   },
   async ionViewWillEnter() {
-    await this.presentLoading()
+    await this.setLoading()
     this.$store.dispatch('GET_CAR_BY_ID', {
       id: this.carId,
       token: this.userToken
     })
     .then(response => {
       if (response === 200) {
-        loadingController.dismiss()
+        this.loading = false
       }
     }, error => {
       if (error) {
+        this.loading = false
         this.openToast()
       }
     })
   },
   methods: {
-    async presentLoading() {
-      const loading = await loadingController
-          .create({
-            message: 'Načítání...',
-          });
-
-      await loading.present();
+    setLoading() {
+      this.loading = true
     },
     async openToast() {
       const toast = await toastController

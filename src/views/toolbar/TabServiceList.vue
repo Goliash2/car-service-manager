@@ -3,6 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Vozy v servisu</ion-title>
+        <ion-spinner v-if="loading" slot="end"></ion-spinner>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -31,42 +32,39 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, loadingController, toastController } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, toastController, IonSpinner  } from '@ionic/vue';
 import {cog, logIn, logOut} from "ionicons/icons";
 import {mapGetters} from "vuex";
 import TabServiceItem from "@/components/items/TabServiceItem";
 
 export default  {
   name: 'TabCarList',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, TabServiceItem },
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonSpinner, TabServiceItem },
   data() {
     return {
      cog,
      logIn,
-     logOut
+     logOut,
+     loading: false
     }
   },
-  async ionViewWillEnter() {
-    await this.presentLoading()
+   async ionViewWillEnter() {
+    await this.setLoading()
     this.$store.dispatch('GET_SERVICE_LIST', this.userToken)
     .then(response => {
       if (response === 200) {
-        loadingController.dismiss()
+        this.loading = false
       }
     }, error => {
       if (error) {
+        this.loading = false
         this.openToast()
       }
     })
   },
   methods: {
-    async presentLoading() {
-      const loading = await loadingController
-          .create({
-            message: 'Načítání...',
-          });
-
-      await loading.present();
+    setLoading() {
+      this.loading = true
     },
     async openToast() {
       const toast = await toastController
@@ -93,3 +91,9 @@ export default  {
   },
 }
 </script>
+
+<style>
+  ion-spinner {
+    padding-right: 50px;
+  }
+</style>
