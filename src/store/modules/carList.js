@@ -17,9 +17,9 @@ export default {
                     headers: { 'Authorization': 'Bearer ' + payload.token }
                 })
                     .then(response => {
-                        context.commit('SET_CAR_BY_ID', response.data)
                         resolve(
-                            response.status
+                            response.status,
+                            context.commit('SET_CAR_BY_ID', response.data)
                         )
                     })
                     .catch(err => {
