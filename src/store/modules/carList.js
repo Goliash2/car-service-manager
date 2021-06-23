@@ -19,7 +19,7 @@ export default {
                     .then(response => {
                         context.commit('SET_CAR_BY_ID', response.data)
                         resolve(
-                            response.status,
+                            response.status
                         )
                     })
                     .catch(err => {

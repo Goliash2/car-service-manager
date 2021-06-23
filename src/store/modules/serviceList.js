@@ -11,16 +11,24 @@ export default {
         }
     },
     actions: {
-      GET_SERVICE_LIST(context, token) {
-          axios.get('https://csm.fd.cvut.cz/services', {
-              headers: { 'Authorization': 'Bearer ' + token }
+      async GET_SERVICE_LIST(context, token) {
+          return new Promise((resolve, reject) => {
+              axios.get('https://csm.fd.cvut.cz/services', {
+                  headers: { 'Authorization': 'Bearer ' + token }
+              })
+                  .then(response => {
+                      context.commit('SET_SERVICE_LIST', response.data)
+                      resolve(
+                          response.status
+                      )
+                  })
+                  .catch(err => {
+                      if (err.response) {
+                          reject(console.log(err))
+                      }
+                  })
           })
-              .then(res => {
-                  context.commit('SET_SERVICE_LIST', res.data)
-              })
-              .catch(err => {
-                  console.log(err)
-              })
+
       }
     },
     getters: {
