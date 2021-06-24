@@ -93,7 +93,5 @@ export default  {
 </script>
 
 <style scoped>
-  ion-spinner {
-    padding-right: 50px;
-  }
+
 </style>

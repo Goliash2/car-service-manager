@@ -24,7 +24,10 @@ export default {
                   })
                   .catch(err => {
                       if (err.response) {
-                          reject(console.log(err))
+                          reject(
+                              err,
+                              console.log(err)
+                          )
                       }
                   })
           })
