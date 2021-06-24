@@ -8,6 +8,9 @@ export default {
     mutations: {
         SET_CAR_BY_ID(state, car) {
             state.car = car
+        },
+        CLEAR_CAR_BY_ID_STATE(state) {
+            state.car = []
         }
     },
     actions: {

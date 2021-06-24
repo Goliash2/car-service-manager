@@ -75,6 +75,11 @@ name: "CarDetails",
   computed: {
     ...mapGetters(['car']),
     ...mapGetters(['userToken'])
+  },
+  watch: {
+    $route() {
+      this.$store.commit('CLEAR_CAR_BY_ID_STATE')
+    }
   }
 }
 </script>

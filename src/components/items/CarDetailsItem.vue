@@ -60,9 +60,6 @@ export default {
   name: "CarDetailsItem",
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonItem, IonLabel, IonItemDivider, IonIcon },
   props: ['car'],
-  created() {
-    console.log(this.car)
-  },
   data() {
     return {
       timeOutline
