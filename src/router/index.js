@@ -49,7 +49,14 @@ const routes = [
       },
       {
         path: 'new',
-        component: () => import('@/views/service/NewService.vue')
+        component: () => import('@/views/service/NewService.vue'),
+        redirect: '/service/new/car',
+        children: [
+          {
+            path: 'car',
+            component: () => import('@/views/service/NewServiceStages/FindOrCreateCar'),
+          }
+        ]
       },
       {
         path: 'edit',

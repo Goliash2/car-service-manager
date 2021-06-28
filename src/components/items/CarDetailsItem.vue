@@ -18,7 +18,6 @@
           VIN: {{ car.VIN }}
         </ion-card-content>
       </ion-card>
-
       <template v-if="car.services && car.services.some(service => service['service_status']!==4)">
         <template v-for="service in car.services" :key="service.id">
           <ion-card v-if="service['service_status']!==4" color="success">

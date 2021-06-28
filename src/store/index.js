@@ -5,6 +5,7 @@ import carById from "@/store/modules/carById";
 import userAuthentication from "@/store/modules/userAuthentication";
 import findCustomer from '@/store/modules/findCustomer';
 import customerById from "@/store/modules/customerById";
+import findCar from '@/store/modules/findCar'
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -18,7 +19,8 @@ const store = createStore({
         carById,
         userAuthentication,
         findCustomer,
-        customerById
+        customerById,
+        findCar
     },
     plugins: [savedStoreToLocalMemory]
 });

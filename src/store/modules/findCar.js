@@ -1,28 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
+
 export default {
     state() {
         return {
-            car: []
+            foundCarsByValue: []
         }
     },
     mutations: {
-        SET_CAR_BY_ID(state, car) {
-            state.car = car
-        },
-        CLEAR_CAR_BY_ID_STATE(state) {
-            state.car = []
+        SET_FOUND_CAR_BY_VALUES(state, foundCar) {
+            state.foundCarsByValue = foundCar
         }
     },
     actions: {
-        async GET_CAR_BY_ID(context, payload) {
+        async FIND_CAR_BY_VALUES(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.get('https://csm.fd.cvut.cz/cars/'+payload.id, {
+                axios.get('https://csm.fd.cvut.cz/cars/?_where['+payload.data+'_contains]='+payload.record, {
                     headers: { 'Authorization': 'Bearer ' + payload.token }
                 })
                     .then(response => {
                         resolve(
                             response,
-                            context.commit('SET_CAR_BY_ID', response.data)
+                            context.commit('SET_FOUND_CAR_BY_VALUES', response.data)
                         )
                     })
                     .catch(err => {
@@ -37,8 +35,8 @@ export default {
         }
     },
     getters: {
-        car(state) {
-            return state.car;
+        foundCarsByValue(state) {
+            return state.foundCarsByValue;
         }
     }
 }
