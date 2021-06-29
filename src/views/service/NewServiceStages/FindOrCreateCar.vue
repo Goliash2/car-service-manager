@@ -1,33 +1,31 @@
 <template>
-  <new-service-header page-default-back-link="/" :loading="loading">
+  <new-service-header page-default-back-link="/" :loading="loading" :homeButton="false">
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Vyber existující VIN/SPZ<br> nebo přidej nové auto</ion-card-title>
+        <ion-card-title>Vyberte existující VIN/SPZ<br> nebo přidejte nové auto</ion-card-title>
       </ion-card-header>
-      <ion-searchbar @keyup="searchForInsertedValue('SPZ', $event.target.value)" @ionFocus="searchForInsertedValue('SPZ', $event.target.value)" @ionClear="addNewValue=false" placeholder="SPZ"></ion-searchbar>
-      <ion-searchbar @keyup="searchForInsertedValue('VIN', $event.target.value)" @ionFocus="searchForInsertedValue('VIN', $event.target.value)" @ionClear="addNewValue=false" placeholder="VIN"></ion-searchbar>
+      <ion-searchbar v-model="newCarSPZ" @keyup="searchForInsertedValue('SPZ', $event.target.value)" @ionFocus="searchForInsertedValue('SPZ', $event.target.value)" @ionClear="addNewValue=false" placeholder="SPZ"></ion-searchbar>
+      <ion-searchbar v-model="newCarVIN" @keyup="searchForInsertedValue('VIN', $event.target.value)" @ionFocus="searchForInsertedValue('VIN', $event.target.value)" @ionClear="addNewValue=false" placeholder="VIN"></ion-searchbar>
       <ion-list v-for="car in foundCarsByValue" :key="car.id">
         <ion-item @click="getCarByIdDetails(car.id)" v-show="showCarsList">
           <ion-label>
             <h2>VIN: {{ car.VIN }}</h2>
-            <h3>SPZ: {{ car.SPZ }}</h3>
-            <h4>Model: {{ car.Model }}</h4>
+            <h2>SPZ: {{ car.SPZ }}</h2>
           </ion-label>
         </ion-item>
       </ion-list>
     </ion-card>
-    <ion-button v-show="addNewValue" expand="block" color="primary">Přidat nové auto</ion-button>
+    <ion-button v-show="addNewValue" @click="createNewCar" expand="block" color="primary">Přidat nové auto</ion-button>
     <ion-card v-show="numberOfKmIsOpen">
       <ion-card-header>
         <ion-card-subtitle>Detail vozidla</ion-card-subtitle>
-        <ion-card-subtitle>Model: {{ car.Model }}</ion-card-subtitle>
         <ion-card-subtitle>SPZ: {{ car.SPZ }}</ion-card-subtitle>
         <ion-card-subtitle>VIN: {{ car.VIN }}</ion-card-subtitle>
         <ion-card-title>Zadejte počet najetých KM</ion-card-title>
       </ion-card-header>
       <ion-searchbar placeholder="Počet KM" type="number" :search-icon="speedometerOutline" @keyup="storeKilometersInput($event.target.value)" @ionClear="clearKilometers" :value="lastKilometersValue"></ion-searchbar>
     </ion-card>
-    <ion-button v-show="selectedKilometers !==null || lastKilometersValue !==null" :disabled="selectedKilometers ===''" expand="block" color="primary" @click="setKilometers()">Dále</ion-button>
+    <ion-button v-show="car.length !== 0" expand="block" color="primary" @click="setKilometers()">Dále</ion-button>
   </new-service-header>
 </template>
 
@@ -45,7 +43,9 @@ name: "FindOrCreateCar",
       addNewValue: false,
       showCarsList: true,
       speedometerOutline,
-      selectedKilometers: null
+      selectedKilometers: null,
+      newCarSPZ: null,
+      newCarVIN: null
     }
   },
   components: { IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonSearchbar, IonList, IonItem, IonLabel, NewServiceHeader, IonButton},
@@ -105,8 +105,15 @@ name: "FindOrCreateCar",
         }
       })
     },
+    checkIfKilometersAreNull() {
+      return this.selectedKilometers === null;
+    },
     setKilometers() {
-      this.$store.dispatch('SET_KILOMETERS', this.selectedKilometers)
+      if (this.checkIfKilometersAreNull()) {
+        this.$store.dispatch('SET_KILOMETERS', this.kilometers)
+      } else {
+        this.$store.dispatch('SET_KILOMETERS', this.selectedKilometers)
+      }
       this.$router.push('/service/new/driver/')
     },
     clearKilometers() {
@@ -115,6 +122,17 @@ name: "FindOrCreateCar",
     },
     storeKilometersInput(km) {
       this.selectedKilometers = km
+    },
+    createNewCar() {
+      const newCar = {
+        SPZ: this.newCarSPZ,
+        VIN: this.newCarVIN
+      }
+      this.$store.dispatch('CREATE_NEW_CAR', {
+        car: newCar,
+        token: this.userToken
+      })
+      console.log(newCar)
     }
   },
   created() {
