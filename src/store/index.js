@@ -6,11 +6,12 @@ import userAuthentication from "@/store/modules/userAuthentication";
 import findCustomer from '@/store/modules/findCustomer';
 import customerById from "@/store/modules/customerById";
 import findCar from '@/store/modules/findCar'
+import newServiceLocalStorage from '@/store/modules/newServiceLocalStorage'
 
 import createPersistedState from "vuex-persistedstate";
 
 const savedStoreToLocalMemory = createPersistedState({
-    paths: ['userAuthentication']
+    paths: ['userAuthentication', 'newServiceLocalStorage']
 })
 
 const store = createStore({
@@ -20,7 +21,8 @@ const store = createStore({
         userAuthentication,
         findCustomer,
         customerById,
-        findCar
+        findCar,
+        newServiceLocalStorage
     },
     plugins: [savedStoreToLocalMemory]
 });

@@ -19,18 +19,20 @@
     <ion-button v-show="addNewValue" expand="block" color="primary">Přidat nové auto</ion-button>
     <ion-card v-show="numberOfKmIsOpen">
       <ion-card-header>
-        <ion-card-subtitle>Auto</ion-card-subtitle>
+        <ion-card-subtitle>Detail vozidla</ion-card-subtitle>
         <ion-card-subtitle>Model: {{ car.Model }}</ion-card-subtitle>
         <ion-card-subtitle>SPZ: {{ car.SPZ }}</ion-card-subtitle>
         <ion-card-subtitle>VIN: {{ car.VIN }}</ion-card-subtitle>
         <ion-card-title>Zadejte počet najetých KM</ion-card-title>
       </ion-card-header>
-      <ion-searchbar placeholder="Počet KM" type="number" search-icon="undefined"></ion-searchbar>
+      <ion-searchbar placeholder="Počet KM" type="number" :search-icon="speedometerOutline" @keyup="storeKilometersInput($event.target.value)" @ionClear="clearKilometers" :value="lastKilometersValue"></ion-searchbar>
     </ion-card>
+    <ion-button v-show="selectedKilometers !==null || lastKilometersValue !==null" :disabled="selectedKilometers ===''" expand="block" color="primary" @click="setKilometers()">Dále</ion-button>
   </new-service-header>
 </template>
 
 <script>
+import { speedometerOutline } from 'ionicons/icons';
 import NewServiceHeader from "@/views/service/NewServiceHeader";
 import { IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonSearchbar, IonList, IonItem, IonLabel, toastController, IonButton } from '@ionic/vue';
 import {mapGetters} from "vuex";
@@ -41,7 +43,9 @@ name: "FindOrCreateCar",
       loading: false,
       numberOfKmIsOpen: false,
       addNewValue: false,
-      showCarsList: true
+      showCarsList: true,
+      speedometerOutline,
+      selectedKilometers: null
     }
   },
   components: { IonCard, IonCardTitle, IonCardHeader, IonCardSubtitle, IonSearchbar, IonList, IonItem, IonLabel, NewServiceHeader, IonButton},
@@ -60,11 +64,12 @@ name: "FindOrCreateCar",
     },
     async searchForInsertedValue(record, value) {
       this.showCarsList = true
+      await this.clearKilometers()
       await this.$store.commit('CLEAR_CAR_BY_ID_STATE')
       await this.setLoading()
       this.numberOfKmIsOpen = false
       this.$store.dispatch('FIND_CAR_BY_VALUES', {
-        data: record,
+        vinOrSpz: record,
         record: value,
         token: this.userToken
       })
@@ -99,13 +104,30 @@ name: "FindOrCreateCar",
           this.openToast()
         }
       })
+    },
+    setKilometers() {
+      this.$store.dispatch('SET_KILOMETERS', this.selectedKilometers)
+      this.$router.push('/service/new/driver/')
+    },
+    clearKilometers() {
+      this.$store.commit('CLEAR_KILOMETERS')
+      this.selectedKilometers = null
+    },
+    storeKilometersInput(km) {
+      this.selectedKilometers = km
     }
   },
   created() {
     this.showCarsList = false
+    if (this.car.length !== 0) {
+      this.numberOfKmIsOpen = true
+    }
   },
   computed: {
-    ...mapGetters(['userToken', 'foundCarsByValue', 'car']),
+    ...mapGetters(['userToken', 'foundCarsByValue', 'car', 'kilometers']),
+    lastKilometersValue() {
+      return this.kilometers
+    }
   }
 }
 </script>

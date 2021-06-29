@@ -14,7 +14,7 @@ export default {
     actions: {
         async FIND_CAR_BY_VALUES(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.get('https://csm.fd.cvut.cz/cars/?_where['+payload.data+'_contains]='+payload.record, {
+                axios.get('https://csm.fd.cvut.cz/cars/?_where['+payload.vinOrSpz+'_contains]='+payload.record, {
                     headers: { 'Authorization': 'Bearer ' + payload.token }
                 })
                     .then(response => {

@@ -55,6 +55,10 @@ const routes = [
           {
             path: 'car',
             component: () => import('@/views/service/NewServiceStages/FindOrCreateCar'),
+          },
+          {
+            path: 'driver',
+            component: () => import('@/views/service/NewServiceStages/FindOrCreateDriver'),
           }
         ]
       },
