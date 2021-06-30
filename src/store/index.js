@@ -1,13 +1,14 @@
 import { createStore } from 'vuex';
 
 import serviceList from '@/store/modules/serviceList'
-import carById from "@/store/modules/carById";
+import carById from "@/store/modules/newService/carById";
 import userAuthentication from "@/store/modules/userAuthentication";
 import findCustomer from '@/store/modules/findCustomer';
-import customerById from "@/store/modules/customerById";
-import findCar from '@/store/modules/findCar'
-import newServiceLocalStorage from '@/store/modules/newServiceLocalStorage'
-import createNewCar from "@/store/modules/createNewCar";
+import customerById from "@/store/modules/newService/customerById";
+import findCar from '@/store/modules/newService/findCar'
+import newServiceLocalStorage from '@/store/modules/newService/newServiceLocalStorage'
+import createNewCar from "@/store/modules/newService/createNewCar";
+import findCustomerByCarId from "@/store/modules/newService/findCustomerByCarId";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -24,7 +25,8 @@ const store = createStore({
         customerById,
         findCar,
         newServiceLocalStorage,
-        createNewCar
+        createNewCar,
+        findCustomerByCarId
     },
     plugins: [savedStoreToLocalMemory]
 });
