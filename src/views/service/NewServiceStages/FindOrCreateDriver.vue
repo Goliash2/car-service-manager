@@ -12,7 +12,7 @@
       <ion-list v-for="customer in foundCustomersByCarId" :key="customer.id">
         <ion-item v-for="company in customer.companies" :key="company.id">
           <ion-label>
-            <h2>{{ company.name }}</h2>
+            <h2>Firma: {{ company.name }}</h2>
           </ion-label>
         </ion-item>
       </ion-list>
