@@ -1,20 +1,22 @@
-FROM node:12 as build
+# build stage
+FROM node:lts-alpine as build-stage
 
-WORKDIR /srv/app
+WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json /app
 
-COPY . .
+RUN npm install
+
+COPY . /app
+
 RUN npm run build
 
+EXPOSE 80
 
-FROM nginx:1.17.8-alpine
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /app/nginx/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 
-WORKDIR /usr/share/nginx/html
-
-RUN rm -f /etc/nginx/conf.d/*
-
-COPY nginx/nginx-server.conf /etc/nginx/conf.d/
-
-COPY --from=build /srv/app/dist ./
