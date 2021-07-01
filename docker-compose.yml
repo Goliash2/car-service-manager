@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+
+  frontend:
+    build: .
+    container_name: frontend.csm
+    ports:
+      - '80:80'
+    restart: always
+
+networks:
+  default:
+    external:
+      name: global-npm-net
