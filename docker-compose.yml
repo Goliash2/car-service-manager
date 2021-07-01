@@ -5,8 +5,6 @@ services:
   frontend:
     build: .
     container_name: frontend.csm
-    ports:
-      - '80:80'
     restart: always
 
 networks:
